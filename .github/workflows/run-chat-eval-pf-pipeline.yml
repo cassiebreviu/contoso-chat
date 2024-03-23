@@ -57,8 +57,9 @@ jobs:
       run: |
         pfazure run show-metrics --name ${{env.EVAL_RUN_NAME}} --subscription ${{env.SUBSCRIPTION}} -g ${{env.GROUP}} -w ${{env.WORKSPACE}} > eval_result.json 
         cat eval_result.json
-    - name: List current directory
-      run: ls
+    - name: Print link to evals in AI Studio
+      run: |
+        echo "Link to studio evaluation: https://ai.azure.com/build/evaluation/${{env.EVAL_RUN_NAME}}?wsid=/subscriptions/${{env.SUBSCRIPTION}}/resourceGroups/${{env.GROUP}}/providers/Microsoft.MachineLearningServices/workspaces/contoso-store&tid=${{env.WORKSPACE}}"
     - name: Get assert eval results
       id: jobMetricAssert
       run: |
@@ -78,3 +79,4 @@ jobs:
     - name: Register promptflow model
       if: ${{ steps.jobMetricAssert.outputs.result == 'true' }}
       run: az ml model create --file deployment/chat-model.yaml  -g ${{env.GROUP}} -w ${{env.WORKSPACE}}
+
