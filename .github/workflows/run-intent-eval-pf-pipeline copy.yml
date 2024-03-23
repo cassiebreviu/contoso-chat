@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
 
 env: 
-  GROUP: ${{secrets.GROUP}}
-  WORKSPACE: ${{secrets.WORKSPACE}}
-  SUBSCRIPTION: ${{secrets.SUBSCRIPTION}}
+  GROUP: ${{vars.GROUP}}
+  WORKSPACE: ${{vars.WORKSPACE}}
+  SUBSCRIPTION: ${{vars.SUBSCRIPTION}}
   RUN_NAME: contoso-intent
   EVAL_RUN_NAME: contoso-intent-eval
 
@@ -59,7 +59,7 @@ jobs:
         cat eval_result.json
     - name: Print link to evals in AI Studio
       run: |
-        echo "Link to studio evaluation: https://ai.azure.com/build/evaluation/${{env.EVAL_RUN_NAME}}?wsid=/subscriptions/${{env.SUBSCRIPTION}}/resourceGroups/${{env.GROUP}}/providers/Microsoft.MachineLearningServices/workspaces/contoso-store&tid=${{env.WORKSPACE}}"
+        echo "Link to studio evaluation: https://ai.azure.com/build/evaluation/${{env.EVAL_RUN_NAME}}?wsid=/subscriptions/${{env.SUBSCRIPTION}}/resourceGroups/${{env.GROUP}}/providers/Microsoft.MachineLearningServices/workspaces/contoso-store"
   
     - name: Get assert eval results
       id: jobMetricAssert
